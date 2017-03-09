@@ -1,0 +1,373 @@
+* Document Structure
+** Visibility cycling
+*** should set org-catch-invisible-edits to non-nil to prevent edit an invisible part of the buffer.
+** Motion
+** Structure editing
+*** M-Return
+    Insert a new heading/item with the same level as the one at point
+*** C-Return
+    Insert a new heading at the end of the current subtree
+*** M-S-Return
+    Insert new TODO entry with same level as current heading.
+*** C-S-RET
+    Insert new TODO entry with same level as current heading.
+*** TAB
+    the first TAB demotes the entry to become a child of the previous one. The next TAB makes it a parent
+*** M-left
+    Promote current heading by one level
+*** M-right
+    Demote curretn heading by one level
+*** M-S-left
+    Promote the current subtree by one level
+*** M-S-right
+    Demote the current subtree by one level
+*** M-S-up
+    Move subtree up
+*** M-S-down
+    Move subtree down
+*** M-h
+    Mark the element at point
+*** C-c @
+    Mark the subtree at point.
+*** C-c C-x C-w
+    Kill subtree.
+*** C-c C-x M-w
+    Copy subtree to kill ring
+*** C-c C-x C-y
+    Yank subtree from kill ring
+*** C-c C-w
+    Refile entry or region to a different location.Section 9.5[Refile and copy]
+
+** Sparse trees
+*** C-c /
+    prompts for an extra key to select a sparse-tree creating command
+*** M-g n or M-g M-n
+    Jump to the next sparse tree match in this buffer
+*** M-g p or M-g M-p
+    Jump to the previous sparse tree match in this buffer
+
+*** Can set self-defined
+    (setq org-agenda-custom-commands
+    ('(("f" occur-tree "FIXME"))))
+
+
+** Plain lists
+*** Unordered list
+    -,+,*
+*** Ordered list
+    numberal foolwed by either a period or a right parenthesis, such as 1. or 1), if you want a line to start from a different value, [@20]
+*** Description list items
+    contain the separator '::' to distinguish the description term from the
+*** Item belong to the same list must have the same indentation on the first time. can add like #+BEGIN_... blocks
+*** TAB
+    items can be folded just like headline levels
+*** M-RET
+    Insert new item at current level.
+*** M-S-RET
+    Insert a new item with a checkbox(Section 5.6 [CheckBox])
+*** S-up/S-down
+    Jump to the previous /next item in the current list
+*** M-up/M-down
+    Move the item including subitems up/down(swap with previous/next itme of same indentation)
+*** M-left/M-right
+    Decrease/increase the indentation of an item, leaving children alone
+*** M-S-left/M-S-right
+    Decrease/increase the indentation of an itme, including subitems.
+*** C-c C-c
+    If there is a checkbox, toggle the state of the checkbox
+*** C-c ^
+    Sort the plain list. You will be prompted for the sorting method: numerically, alphabetically.
+
+** Drawer- Contain anything but a headline and another drawer, if you want to keep information associated with an entry, but you normally don't want to see it.
+*** C-c C-x d
+    1. Insert Drawer at point by calling org-insert-drawer
+       :adrawer:
+       This is inside the drawer
+       :END:
+*** C-c C-z
+    Add a time-stamped note to the LOGBOOK drawer
+
+*** select the name of the drawers which should be exported with org-export-with-drawers.
+
+
+** Blocks
+   Org mode uses begin...end blocks for various purposes from including source code examples to capturing time logging information
+
+** Footnotes
+   A footnote is started by a footnote marker in square brackets in column 0, no indentation allowed.
+
+   The Org homepate[fn:1] now looks a lot better than it used to.
+
+[fn:1] THe link is: http://orgmode.org
+
+*** [fn:name]
+    A named footnote reference, where name is a unique label word.
+
+*** [fn::This is the inline definition of this footnote]
+    A latex-like anonymous footnote where the definition is given directly at the reference point
+*** [fn:name:a definition]
+    An inline definition of a footnote, which also specifies a name for the note.
+
+*** Footnote labels can be craeted automatically.
+    handled by variable org-footnote-auto-label and its corresponding #+STARTUP keywords.
+
+*** C-c C-c f
+    jump to definition from reference or jump to refernce from definition.
+    otherwise, create a new footnote.
+
+*** C-c C-c
+    If the cursor is on a footnote reference, jump to the definition.vice versa
+
+*** C-c C-o
+    Footnote labels are also links to the corresponding definition/reference, and you can use the usual commands to follow these links.
+
+*** C-c '
+    Edit the footnote definition corresponding to the reference at point in a seperate window. The window can be closed by pressing C-c '
+
+** Orgstruct minor mode
+if you like org-mode, toggle minor mode with M-x orgstruct-mode, or turn it on by default.
+
+
+** Org syntax
+To explore the abstract structure of an Org buffer, run this in a buffer: M-: (org-element-parse-buffer) RET
+
+
+* Tables
+** The built-in table editor
+1. use '|' as the first non-whiespace character is considered part of a table
+2. any line starting with '|-' is considered as a horizontal separator line.
+3. or just |Name|Phone|Age and C-c Ret
+
+| Name   | Phone | Age |
+|------+-------+-----|
+|      |       |     |
+
+
+*** Creation and conversion
+**** C-c |
+     Convert the active regin to a table
+
+*** Re-aligning and field motion
+**** C-c C-c
+     Re-align the table and don't move to another field.
+
+**** C-c SPC
+     Blank the field at point
+**** TAB
+     Re-align the table, move to next field.
+**** S-TAB
+     Re-align, move to previous field
+**** RET
+     Re-align the table and move down to next row.
+**** M-a
+     Move to beginning of current table field, or on to the prefious field
+**** M-e
+     Move to end of current table field, or on to the next field.
+
+*** Column and row editing
+**** M-left/M-right
+     move the current left/right
+**** M-S-left
+     Kill the current column
+**** M-S right
+     Insert a new column to the left of the cursor position
+
+**** M-up/M-down
+     Move the current row up/down
+
+**** C-c -
+     Insert a horizontal line below current row
+**** C-c RET
+     Insert a horizontal line below current row and move the cursor into the row
+**** C-c ^
+     Sort the table lines in the region
+
+*** Regions
+*** Calculations
+*** Miscellaneous
+** Column width and alignment
+** Column groups
+** The Orgtbl minor mode
+** The Spreadsheet
+** Org-Plot
+
+
+* Hyperlinks
+** Link format
+"[[link][description]]" or [[link]]
+you can directly edit a link invisable part by using C-c C-l
+
+** Internal links
+   [[#my-custom-id][]]
+   The link can be followed with C-c C-o
+*** Radtio targets
+    org can automatically turn any occurences of certain target names in normal text into a link.
+** External links
+   org supports links to files, websites, Usent and email messgaes, BBDB database entries and links to both IRC conversions and their logs.
+   [[file::/data/SHU/finalProject/museum/viewer3d/src/app.js][app.js]]
+
+** Handling links
+*** C-c l
+    Store a link to current location
+*** C-c C-l
+    Insert a link
+*** C-u C-c C-l
+    When C-c C-l is called with a C-u prefix argument, a link to a file will be inserted and you may use file name completion to select the name of the file
+
+*** C-c C-l (with cursor on existing link)
+    edit the link and description parts of the link
+    [[http://baidu.com][baidu]]
+
+*** C-c C-o
+    Open link at point.
+
+
+*** RET
+    when org-return-follows-link is set, RET will also follow the link at point.
+
+*** C-c C-x C-v
+    Toggle the inline display of linked images.
+
+*** C-c %
+    Push the current position onto the mark ring.
+
+*** C-c C-x C-n / C-c C-x C-p
+    Move forward/backward to the next link in the buffer.
+
+** Using links outside Org
+   (global-set-key "\C-c L" 'org-insert-link-global)
+   (global-set-key "\C-c o" 'org-open-at-point-global)
+
+
+** Link abbreviations
+
+
+** Search options in file links
+** Custom Searches
+
+
+
+#+NAME: My Target
+| a  | table      |
+|----+------------|
+| of | four cells |
+
+
+* Todo items
+** Basic TODO functionality
+*** any headline becomes a TODO item when it starts with 'TODO'
+    for example *** TODO Write letter to Sam Fortune
+
+*** C-c C-t
+    Rotate the TODO state of the current item among (unmarked, todo, done)
+*** C-u C-c C-t
+    when todo keywords have no selection keys, select a specific keyword using completion.
+*** S-right / S-left
+    Select the following/preceding TODO state, similar to cycling
+*** C-c / t
+    View TODO items in a sparse three
+
+*** C-c a t
+    Show the global TODO list. Collects the TODO item from all agenda files into a single buffer
+
+*** S-M-RET
+    Insert a new TODO item below the current one
+
+
+** Extended use of TODO Keywords
+*** Todo keywords as workflow states
+*** Todo keywords as types
+*** Multiple keyword sets in on file
+*** Fast access to TODO states
+*** Setting up keywords for individual files
+*** Faces for TODO keywords
+*** Todo dependencies
+*** C-c C-x o      org-toggle-ordered-property
+
+** Progress logging
+*** closing itmes
+*** Tracking TODO state changes
+*** Tracking your habits
+
+** Priorities
+*** TODO [#A] Write letter to Sam Fortune
+*** C-c set the priority of the current headline (org-priority)
+*** S-up    org-priority-up
+*** S-down org-priority-down
+
+** Breaking tasks down into subtasks
+
+
+
+
+** checkboxes
+   Every item in a plain list can be makde into a checkbox by starting it with the string '[]'
+
+*** Example
+**** TODO Organize party [0/1]
+     - [-] call people [1/2]
+       - [ ] Sam
+       - [X] Peter
+
+*** C-c C-c
+    Toggle checkbox status
+*** C-c C-x C-b
+    Toggle checkbox status or checkbox pressence at point.
+
+*** M-S-RET
+    Insert a new item with a checkbox
+
+*** C-c C-x o
+    Toggle the ORDERED property of the entry
+
+*** C-c #
+    Update the statistics cookie in the current outline entry
+
+
+* Tags
+** Tag Inheritance
+*** Meeting with the French Group                                               :work:
+**** Summary by Frank                                                           :boss:notes:
+***** TODO Prepare slides for him                                               :action:
+#+FILETAGS: :Peter:Boss:Secret:
+
+
+** Setting tags
+*** C-c C-q    org-set-tags-command
+    Enter new tags for the curren headline
+*** C-c C-c
+    When the cursor is in a headline, this does the same as C-c C-q
+
+
+** Tag hierarchy
+** Tag searchs
+*** C-c / m or C-c \           org-match-sparse-tree
+    Create a sparse tree with all headlines matching a tags/property/TODO search
+*** C-c a m
+    Create a global list of tag matches from all agenda files
+*** C-c a M
+    Create a global list of tag matches from all agenda files, but check only TODO items and force checking subitems
+
+
+
+* Properties and columns
+** Property syntax
+** Special properties
+** property searches
+** Property inheritance
+** Column View
+** The Property API
+
+
+
+* Dates and times
+
+* Capture-Refile-Archive
+
+* Agenda views
+
+* Markup for rich export
+
+* Exporting
+
+* Publishing
